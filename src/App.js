@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Navigation from "./components/Navigation";
+import defaultComponents from "./data/defaultComponents";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+  const [components, setComponents] = useState(defaultComponents);
+  const [idCounter, setIdCounter] = useState(defaultComponents.length);
+  const handleAddComponent = component => {
+    setComponents([...components, { ...component, id: idCounter, x: 0, y: 0 }]);
+    setIdCounter(idCounter + 1);
+  };
+
+  const handleEditComponent = component => {
+      const copy = [...components];
+      copy[copy.findIndex(comp => comp.id === component.id)] = component;
+      setComponents(copy);
+  };
+
+  const handleSubmit = component => {
+    if (component.id === undefined) {
+      handleAddComponent(component);
+    } else {
+      handleEditComponent(component);
+    }
+  };
+
+  return <Navigation components={components} handleSubmit={handleSubmit} />;
+};
 
 export default App;
