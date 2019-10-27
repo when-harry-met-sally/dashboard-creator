@@ -19,9 +19,9 @@ export default function CreateEditComponentModal({
   open,
   setOpen,
   focus,
-  setFocus
+  setFocus,
+  handleDelete
 }) {
-  console.log(focus.id);
   const handleClose = () => {
     setOpen(false);
   };
@@ -30,6 +30,11 @@ export default function CreateEditComponentModal({
     handleSubmit(focus)
     handleClose();
   };
+
+  const handleDeleteButton = () => {
+    handleDelete(focus);
+    handleClose();
+  }
   const colors = [
     {
       name: "Red",
@@ -121,22 +126,22 @@ export default function CreateEditComponentModal({
             <Grid item xs={12} md={3}>
               <TextField
                 id="standard-name"
-                label="Type"
+                label="Text"
                 margin="normal"
-                value={focus.type}
+                value={focus.text}
                 onChange={e => {
-                  setFocus({ ...focus, type: e.target.value });
+                  setFocus({ ...focus, text: e.target.value });
                 }}
               />
             </Grid>
             <Grid item xs={12} md={3}>
               <TextField
                 id="standard-name"
-                label="Function"
+                label="Image"
                 margin="normal"
-                value={focus.function}
+                value={focus.image}
                 onChange={e => {
-                  setFocus({ ...focus, function: e.target.value });
+                  setFocus({ ...focus, image: e.target.value });
                 }}
               />
             </Grid>
@@ -160,9 +165,13 @@ export default function CreateEditComponentModal({
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
+     
+          {focus.id !== undefined && <Button onClick={() => handleDeleteButton()} color="secondary">
+            Delete
+          </Button>}
           <Button onClick={() => handleSubmitButton()} color="primary">
             {focus.id === undefined ? 'Create' : 'Edit'}
-          </Button>
+            </Button>
         </DialogActions>
       </Dialog>
     </div>

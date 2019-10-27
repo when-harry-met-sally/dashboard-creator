@@ -11,9 +11,9 @@ const App = () => {
   };
 
   const handleEditComponent = component => {
-      const copy = [...components];
-      copy[copy.findIndex(comp => comp.id === component.id)] = component;
-      setComponents(copy);
+    const copy = [...components];
+    copy[copy.findIndex(comp => comp.id === component.id)] = component;
+    setComponents(copy);
   };
 
   const handleSubmit = component => {
@@ -24,7 +24,18 @@ const App = () => {
     }
   };
 
-  return <Navigation components={components} handleSubmit={handleSubmit} />;
+  const handleDelete = component => {
+    const copy = [...components].filter(comp => comp.id !== component.id);
+    setComponents(copy);
+  };
+
+  return (
+    <Navigation
+      components={components}
+      handleSubmit={handleSubmit}
+      handleDelete={handleDelete}
+    />
+  );
 };
 
 export default App;

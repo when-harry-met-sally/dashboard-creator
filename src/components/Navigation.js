@@ -26,7 +26,8 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex"
+    display: "flex",
+    backgroundColor: 'lightgrey'
   },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
@@ -80,7 +81,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function PersistentDrawerRight({
   components,
-  handleSubmit
+  handleSubmit,
+  handleDelete
 }) {
   const classes = useStyles();
   const theme = useTheme();
@@ -91,9 +93,13 @@ export default function PersistentDrawerRight({
   const defaultSubject = {
     name: null,
     description: null,
-    type: null,
-    function: null,
-    color: "#f54340"
+    text: null,
+    image: null,
+    color: "#f54340",
+    x: 0, 
+    y: 0,
+    width: 100,
+    height: 100
   };
 
   const handleDrawerOpen = () => {
@@ -125,6 +131,7 @@ export default function PersistentDrawerRight({
           focus={focus}
           setFocus={setFocus}
           handleSubmit={handleSubmit}
+          handleDelete={handleDelete}
         />
       )}
       <CssBaseline />
@@ -186,7 +193,8 @@ export default function PersistentDrawerRight({
               <ListItemIcon>
                 <EditIcon />
               </ListItemIcon>
-              <ListItemText primary={component.name} />
+              <ListItemText primary={component.name} secondary={component.description} />
+           
             </ListItem>
           ))}
         </List>
